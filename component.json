@@ -1,5 +1,5 @@
 {
-  "name": "numeric-validator",
+  "name": "numeric-validators",
   "scripts": ["index.js"],
   "development": {
     "dependencies": {

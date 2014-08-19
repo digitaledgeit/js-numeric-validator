@@ -1,4 +1,4 @@
-# numeric-validator
+# numeric-validators
 
 A collection of numeric validators.
 
