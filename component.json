@@ -1,0 +1,9 @@
+{
+  "name": "numeric-validator",
+  "scripts": ["index.js"],
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  }
+}
