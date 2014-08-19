@@ -1,5 +1,5 @@
 var assert      = require('assert');
-var validators  = require('numeric-validator');
+var validators  = require('numeric-validators');
 
 describe('number-validators', function() {
 
@@ -19,9 +19,13 @@ describe('number-validators', function() {
     });
 
     it('should be false', function() {
+      assert(!float([]));
+      assert(!float({}));
       assert(!float(true));
       assert(!float(false));
       assert(!float('3.14a'));
+      assert(!float('foobar'));
+      assert(!float('0123'));
     });
 
   });

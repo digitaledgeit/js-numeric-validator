@@ -10,7 +10,7 @@ function castToString(value) {
 
 var rules = {
 
-  FLOAT: /^\-?([0-9]+)(\.[0-9]+)?$/,
+  FLOAT: /^\-?(0|[1-9][0-9]*)(\.[0-9]+)?$/,
 
   /**
    * Get whether the value is in the format of a floating point number
