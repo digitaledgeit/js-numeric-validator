@@ -30,4 +30,27 @@ describe('number-validators', function() {
 
   });
 
+  describe('between', function() {
+
+    var between = validators.between(0, 100);
+
+    it('should be true', function() {
+      assert(between(0));
+      assert(between(50));
+      assert(between(100));
+      assert(between(0.1));
+      assert(between('75'));
+    });
+
+    it('should be false', function() {
+      assert(!between(-1));
+      assert(!between(101));
+      assert(!between(-0.1));
+      assert(!between(100.1));
+      assert(!between('foobar'));
+      assert(!between('0123'));
+    });
+
+  });
+
 });
