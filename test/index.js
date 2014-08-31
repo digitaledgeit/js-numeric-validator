@@ -3,6 +3,35 @@ var validators  = require('numeric-validators');
 
 describe('number-validators', function() {
 
+  describe('integer', function() {
+
+    var int = validators.integer;
+
+    it('should be true', function() {
+      assert(int(0));
+      assert(int(1));
+      assert(int('0'));
+      assert(int('1'));
+      assert(int(2));
+      assert(int(-2));
+    });
+
+    it('should be false', function() {
+      assert(!int([]));
+      assert(!int({}));
+      assert(!int(true));
+      assert(!int(false));
+      assert(!int(3.14));
+      assert(!int(-3.333));
+      assert(!int('3.14'));
+      assert(!int('-3.333'));
+      assert(!int('3.14a'));
+      assert(!int('foobar'));
+      assert(!int('0123'));
+    });
+
+  });
+
   describe('float', function() {
 
     var float = validators.float;
@@ -26,6 +55,50 @@ describe('number-validators', function() {
       assert(!float('3.14a'));
       assert(!float('foobar'));
       assert(!float('0123'));
+    });
+
+  });
+
+  describe('lessThan', function() {
+
+    var lessThan = validators.lessThan(100);
+
+    it('should be true', function() {
+      assert(lessThan(-1));
+      assert(lessThan(0));
+      assert(lessThan(99));
+      assert(lessThan(0.1));
+      assert(lessThan('75'));
+    });
+
+    it('should be false', function() {
+      assert(!lessThan(100));
+      assert(!lessThan(101));
+      assert(!lessThan(100.1));
+      assert(!lessThan('foobar'));
+      assert(!lessThan('0123'));
+    });
+
+  });
+
+  describe('greaterThan', function() {
+
+    var greaterThan = validators.greaterThan(100);
+
+    it('should be true', function() {
+      assert(greaterThan(900));
+      assert(greaterThan(101));
+      assert(greaterThan(100.1));
+    });
+
+    it('should be false', function() {
+      assert(!greaterThan(-1));
+      assert(!greaterThan(0));
+      assert(!greaterThan(99));
+      assert(!greaterThan(0.1));
+      assert(!greaterThan('75'));
+      assert(!greaterThan('foobar'));
+      assert(!greaterThan('0123'));
     });
 
   });

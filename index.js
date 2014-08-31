@@ -1,16 +1,16 @@
-
-/**
- * Cast a value to a string
- * @param   {String} value
- * @returns {String}
- */
-function castToString(value) {
-  return value+'';
-}
-
 var rules = {
 
-  FLOAT: /^\-?(0|[1-9][0-9]*)(\.[0-9]+)?$/,
+  INTEGER:  /^\-?(0|[1-9][0-9]*)$/,
+  FLOAT:    /^\-?(0|[1-9][0-9]*)(\.[0-9]+)?$/,
+
+  /**
+   * Get whether the value is in the format of an integer number
+   * @param   {String} value
+   * @returns {Boolean}
+   */
+  integer: function(value) {
+    return rules.INTEGER.test(value+'');
+  },
 
   /**
    * Get whether the value is in the format of a floating point number
@@ -18,7 +18,54 @@ var rules = {
    * @returns {Boolean}
    */
   float: function(value) {
-    return rules.FLOAT.test(castToString(value));
+    return rules.FLOAT.test(value+'');
+  },
+
+  /**
+   * Get whether the value is in the format of a number
+   * @param   {String} value
+   * @returns {Boolean}
+   */
+  numeric: function(value) {
+    return rules.FLOAT.test(value+'');
+  },
+
+  /**
+   * Get whether a value is less than an upper bound
+   * @param   {Number} max
+   * @returns {Function}
+   */
+  lessThan: function(max) {
+    return function(value) {
+
+      //check if the value is numeric
+      if (!rules.numeric(value)) {
+        return false
+      }
+
+      max   = Number(max);
+      value = Number(value);
+      return value < max;
+    };
+  },
+
+  /**
+   * Get whether a value is greater than an upper bound
+   * @param   {Number} max
+   * @returns {Function}
+   */
+  greaterThan: function(min) {
+    return function(value) {
+
+      //check if the value is numeric
+      if (!rules.numeric(value)) {
+        return false
+      }
+
+      min   = Number(min);
+      value = Number(value);
+      return value > min;
+    };
   },
 
   /**
@@ -29,6 +76,12 @@ var rules = {
    */
   between: function(min, max) {
     return function(value) {
+
+      //check if the value is numeric
+      if (!rules.numeric(value)) {
+        return false
+      }
+
       min   = Number(min);
       max   = Number(max);
       value = Number(value);
